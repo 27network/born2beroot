@@ -18,7 +18,7 @@ case $yn in
 		exit -1;;
 esac
 
-log "Please input your login (will be used for checks): "
+log "Please input your login: "
 read -r "" usrlogin
 
 log "Installing...\n"
@@ -26,7 +26,7 @@ SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
 for s in $SCRIPTS
 do
 	log "Launching $s...\n"
-	bash $s
+	bash $s $usrlogin
 done
 
 log "Finished install! Do you want to launch Pixailz's tester? (y/N) "
