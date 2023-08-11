@@ -13,4 +13,4 @@ cd $HOME/b2br
 
 # Launch installer
 cd scripts
-bash ./01-installer.sh
+bash ./00-installer.sh

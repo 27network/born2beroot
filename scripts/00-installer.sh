@@ -26,4 +26,26 @@ do
 	bash $s
 done
 
-log "Finished install!\n"
+log "Finished install! Do you want to launch Pixailz's tester? (y/N) "
+read -p "" yn2
+
+case $yn2 in
+	[yY] )
+		;;
+	[nN] )
+		exit 0;;
+	* )
+		exit -1;;
+esac
+
+log "Fetching & launching tester...\n"
+git clone https://github.com/27network/Born2BeRootTester $HOME/b2br/tester
+cd $HOME/b2br/tester
+
+log "Please input your login (will be used for checks): "
+read -r "" usrlogin
+
+log "Welcome $usrlogin, launching tester...\n"
+bash ./grade_me.sh -u $usrlogin
+
+log "All done!"
