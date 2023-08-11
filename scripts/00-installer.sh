@@ -18,6 +18,9 @@ case $yn in
 		exit -1;;
 esac
 
+log "Please input your login (will be used for checks): "
+read -r "" usrlogin
+
 log "Installing...\n"
 SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
 for s in $SCRIPTS
@@ -42,12 +45,8 @@ log "Fetching & launching tester...\n"
 git clone https://github.com/27network/Born2BeRootTester $HOME/b2br/tester
 cd $HOME/b2br/tester
 
-log "Press enter: "
-read -r "" dummy
-log "Please input your login (will be used for checks): "
-read -r "" usrlogin
-
-log "Welcome $usrlogin, launching tester...\n"
-bash ./grade_me.sh -u $usrlogin
+log "Launching for $usrlogin..\n"
+bash ./grade_me.sh -u $usrlogin > /dev/null 2>&1
+cat $HOME/b2br/tester/deepthought
 
 log "All done!"
