@@ -19,7 +19,7 @@ case $yn in
 esac
 
 log "Please input your login: "
-read -r "" usrlogin
+read -p "" usrlogin
 
 log "Installing...\n"
 SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
