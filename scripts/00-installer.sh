@@ -19,9 +19,11 @@ case $yn in
 esac
 
 log "Installing...\n"
-SCRIPTS=$(find -type f | sort | tail -n+3 | sed 's/^\.\///g')
+SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
 for s in $SCRIPTS
 do
 	log "Launching $s...\n"
 	bash $s
 done
+
+log "Finished install!\n"
