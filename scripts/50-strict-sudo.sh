@@ -4,6 +4,8 @@
 apt install sudo -y
 
 # Configure sudo
+mkdir -p /var/log/sudo
+
 chmod +w /etc/sudoers
 
 function add_default() {
