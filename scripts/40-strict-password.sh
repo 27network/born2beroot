@@ -20,7 +20,7 @@ chage -W 7 root
 
 # Password rules
 chmod +w /etc/pam.d/common-password
-LINE="password	requisite			pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 usercheck=1 difok=7 enforce_for_root"
+LINE="password	requisite			pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 lcredit=-1 maxrepeat=3 usercheck=1 difok=7 enforce_for_root"
 sed -i "s/.*retry=3.*/$LINE/g" /etc/pam.d/common-password
 chmod -w /etc/pam.d/common-password
 
