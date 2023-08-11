@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Check if run as root
+if [ "$(id -u)" -ne 0 ]; then
+	echo "Please run this script as sudo/root."
+	exit 1
+fi
+
 # Update packages
 apt update -y
 apt upgrade -y
