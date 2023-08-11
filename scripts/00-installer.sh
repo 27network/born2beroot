@@ -42,6 +42,8 @@ log "Fetching & launching tester...\n"
 git clone https://github.com/27network/Born2BeRootTester $HOME/b2br/tester
 cd $HOME/b2br/tester
 
+log "Press enter: "
+read -r "" dummy
 log "Please input your login (will be used for checks): "
 read -r "" usrlogin
 
