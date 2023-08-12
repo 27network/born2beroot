@@ -46,6 +46,6 @@ git clone https://github.com/27network/Born2BeRootTester $HOME/b2br/tester
 cd $HOME/b2br/tester
 
 log "Launching for $usrlogin..\n"
-bash ./grade_me.sh -u $usrlogin -m $HOME/b2br/monitoring.sh
+bash ./grade_me.sh -u $usrlogin -m $HOME/b2br-scripts/monitoring.sh
 
 log "All done!\n"
