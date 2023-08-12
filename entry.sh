@@ -11,7 +11,7 @@ apt update -y
 apt upgrade -y
 
 # Install base packages
-apt install -y build-essential curl wget neovim git
+apt install -y build-essential curl wget git
 
 # Check if we're already cloned
 REPO_URL=https://github.com/27network/born2beroot
