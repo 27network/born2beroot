@@ -11,7 +11,7 @@ systemctl enable --now cron
 
 # Write crontab
 INTERVAL='*/10 * * * *'
-COMMAND="sh $ROOT_DIR/monitoring.sh"
+COMMAND="sh $ROOT_DIR/monitoring.sh 2>/dev/null"
 (crontab -l 2>/dev/null; echo "$INTERVAL $COMMAND") | crontab -
 
 # Ensure crontab loaded
