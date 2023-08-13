@@ -16,8 +16,8 @@ fw "https" 8443 443
 fw "ftp" 2121 21
 fw "ftp2" 20 20
 
-pasv_min_port=41000
-pasv_max_port=42000
+pasv_min_port=42000
+pasv_max_port=42042
 for i in $(seq $pasv_min_port $pasv_max_port); do
 	fw "ftp_pasv$i" $i $i
 done

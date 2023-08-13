@@ -43,15 +43,39 @@ esac
 log "Please input your login: "
 read -p "" usrlogin
 
-log "Installing...\n"
+LOG_DIR="$1/logs"
+if [ -d "$LOG_DIR" ]
+then
+	rm -rf $LOG_DIR
+fi
+mkdir -p $LOG_DIR
+
+echo ""
+log "Outputs (and errors) will be saved in $LOG_DIR\n"
+echo ""
+
 SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
+MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | /bin/wc -L)
 for s in $SCRIPTS
 do
-	log "Launching $s...\n"
-	bash $s $usrlogin $1
+	log "Executing %s...\n"
+	SPACING=$(printf "%*s" $((MAX_SCRIPT_LENGTH - ${#s})) "")
+	echo -n "$s$SPACING"
+	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
+	if [ $? -ne 0 ]
+	then
+		echo -en "\x1b[41;1m"
+		echo -n " FAILURE "
+	else
+		echo -en "\x1b[42;1m"
+		echo -n " SUCCESS "
+	fi
+	echo -en "\x1b[0m"
 done
 
-log "Finished install! Do you want to launch Pixailz's tester? (y/N) "
+log "Finished install!"
+
+log " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
 read -p "" yn2
 
 case $yn2 in
