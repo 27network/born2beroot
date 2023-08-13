@@ -10,19 +10,24 @@ systemctl enable --now vsftpd
 echo $1 | sudo tee -a /etc/vsftpd.userlist
 
 # Edit configuration
-sed -i 's/^listen=YES/listen=NO/g' /etc/vsftpd.conf
-sed -i 's/^listen_ipv6=NO/listen_ipv6=YES/g' /etc/vsftpd.conf
-sed -i 's/^anonymous_enable=YES/anonymous_enable=NO/g' /etc/vsftpd.conf
-sed -i 's/^#local_enable=YES/local_enable=YES/g' /etc/vsftpd.conf
-sed -i 's/^#write_enable=YES/write_enable=YES/g' /etc/vsftpd.conf
-sed -i 's/^#local_umask=022/local_umask=022/g' /etc/vsftpd.conf
-sed -i 's/^#chroot_local_user=YES/chroot_local_user=YES/g' /etc/vsftpd.conf
-echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
-echo "userlist_enable=YES" >> /etc/vsftpd.conf
-echo "userlist_file=/etc/vsftpd.userlist" >> /etc/vsftpd.conf
-echo "userlist_deny=NO" >> /etc/vsftpd.conf
-pasv_min_port=1338
-pasv_max_port=1345
+## Disable anonymous users
+sed -i 's/.*anonymous_enable=.*/anonymous_enable=NO/g' /etc/vsftpd.conf
+
+## Enable local users
+sed -i 's/.*local_enable=.*/local_enable=YES/g' /etc/vsftpd.conf
+sed -i 's/.*write_enable=.*/write_enable=YES/g' /etc/vsftpd.conf
+sed -i 's/.*local_umask=.*/local_umask=022/g' /etc/vsftpd.conf
+
+## Enable SSL 
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
+sed -i 's/.*rsa_cert_file=.*/rsa_cert_file=\/etc\/ssl\/private\/vsftpd.pem/g' /etc/vsftpd.conf
+sed -i 's/.*rsa_private_key_file=.*/rsa_private_key_file=\/etc\/ssl\/private\/vsftpd.pem/g' /etc/vsftpd.conf
+sed -i 's/.*ssl_enable=.*/ssl_enable=YES/g' /etc/vsftpd.conf
+
+## Enable passive mode
+echo "pasv_enable=YES" >> /etc/vsftpd.conf
+pasv_min_port=41000
+pasv_max_port=42000
 echo "pasv_min_port=$pasv_min_port" >> /etc/vsftpd.conf
 echo "pasv_max_port=$pasv_max_port" >> /etc/vsftpd.conf
 
