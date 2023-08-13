@@ -74,7 +74,10 @@ do
 		echo -en "\x1b[42;1m"
 		echo -n " SUCCESS "
 	else
-		LINENB=$(cat $LOG_DIR/$s.err | grep -o 'LINENO:[0-9]*' | tail -n 1 | cut -d ':' -f 2) 
+		LINENB=$(cat $LOG_DIR/$s.log | grep -o 'LINENO:[0-9]*' | tail -n 1 | cut -d ':' -f 2) 
+		cat $LOG_DIR/$s.log | head -n -1 > $LOG_DIR/$s.log.tmp
+		mv $LOG_DIR/$s.log.tmp $LOG_DIR/$s.log
+
 		echo -en "\x1b[41;1m"
 		echo -n " FAILURE (line $LINENB) "
 	fi
