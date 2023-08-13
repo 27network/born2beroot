@@ -3,7 +3,7 @@
 # if the first argument isnt set
 if [ -z "$1" ]
 then
-	echo "Usage: ./00-installer.sh <directory>"
+	echo "Usage: ./00-installer.sh <b2br repo/directory>"
 	exit -1
 fi
 
@@ -11,6 +11,13 @@ function log() {
 	PREFIX="\x1b[32;1mBorn2BeRoot\x1b[0m>"
 	printf "$PREFIX $@"
 }
+
+LOG_DIR="$1/logs"
+if [ -d "$LOG_DIR" ]
+then
+	rm -rf $LOG_DIR
+fi
+mkdir -p $LOG_DIR
 
 # Obligatory project header
 clear
@@ -45,13 +52,6 @@ esac
 
 log "Please input your login: "
 read -p "" usrlogin
-
-LOG_DIR="$1/logs"
-if [ -d "$LOG_DIR" ]
-then
-	rm -rf $LOG_DIR
-fi
-mkdir -p $LOG_DIR
 
 SCRIPTS=$(find -type f | sort | sed 's/^\.\///g' | grep -v '00-')
 MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | tr ' ' '\n' | wc -L)
