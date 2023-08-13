@@ -39,7 +39,7 @@ mysql -e "GRANT ALL ON ${WP_DATABASE}.* TO '$WP_USER'@'localhost' IDENTIFIED BY 
 mysql -e "FLUSH PRIVILEGES"
 
 # Install php
-apt install -y php php-fpm php-mysql phsudo apt-get install wget tar -yp-cgi
+apt install -y php php-fpm php-mysql php-cgi
 
 # Yeet apache
 apt purge -y apache2
