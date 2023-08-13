@@ -67,17 +67,14 @@ sed -i "s/database_name_here/$WP_DATABASE/g" /var/www/html/wp-config-sample.php
 sed -i "s/username_here/$WP_USER/g" /var/www/html/wp-config-sample.php
 sed -i "s/password_here/$WP_PASSWORD/g" /var/www/html/wp-config-sample.php
 ## Secret key/salts
-sed -i "s/.*_KEY.*;//g" /var/www/html/wp-config-sample.php
-sed -i "s/.*_SALT.*;//g" /var/www/html/wp-config-sample.php
-echo "<?php" > tmp.txt
-curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> tmp.txt
-cat tmp.txt /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
+sed -i 's/.*unique\ phrase.*//g' /var/www/html/wp-config-sample.php
+curl -s https://api.wordpress.org/secret-key/1.1/salt/ > tmp.txt
+sed -i '/#@-/r tmp.txt' /var/www/html/wp-config-sample.php
 rm -f tmp.txt
-sed -i "1,/<?php/d" /var/www/html/wp-config.php
+mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 chown -R www-data:www-data /var/www/html/
 chmod -R 755 /var/www/html
-
 
 # Setup Wordpress cron
 echo "*/5 * * * * www-data /usr/bin/php /var/www/html/wp-cron.php" >> /etc/crontab
