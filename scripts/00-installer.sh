@@ -24,16 +24,9 @@ clear
 echo ""
 echo -e "\x1b[31;1m     _    ____  _          \x1b[0m"
 echo -e "\x1b[33;1m    | |__|___ \| |__  _ __ \x1b[0m"
-echo -e "\x1b[32;1m    | '_ \ __) | '_ \| '__|\x1b[0m"
-echo -e "\x1b[34;1m    | |_) / __/| |_) | |   \x1b[0m"
-echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m"
-echo ""
-
-echo ""
-echo ""
-log "Born2BeRoot installer v0.2.8 by kiroussa\n"
-log "Running in '$1'\n"
-log "Outputs (and errors) will be saved in $LOG_DIR\n"
+echo -e "\x1b[32;1m    | '_ \ __) | '_ \| '__|\x1b[0m\tBorn2BeRoot installer v0.3.0 by kiroussa"
+echo -e "\x1b[34;1m    | |_) / __/| |_) | |   \x1b[0m\tRunning in '$1'"
+echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m\tOutputs (and errors) will be saved in $LOG_DIR"
 echo ""
 echo ""
 
@@ -79,7 +72,8 @@ do
 		mv $LOG_DIR/$s.log.tmp $LOG_DIR/$s.log
 
 		echo -en "\x1b[41;1m"
-		echo -n " FAILURE (line $LINENB) "
+		echo -n " FAILURE \x1b[0m"
+		echo -en "\x1b[31;1m (line $LINENB)"
 	fi
 	echo -e "\x1b[0m"
 done
