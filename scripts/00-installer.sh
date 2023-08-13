@@ -23,8 +23,10 @@ echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m"
 echo ""
 
 echo ""
-log "Born2BeRoot installer v0.2.7 by kiroussa\n"
+echo ""
+log "Born2BeRoot installer v0.2.8 by kiroussa\n"
 log "Running in '$1'\n"
+log "Outputs (and errors) will be saved in $LOG_DIR\n"
 echo ""
 echo ""
 
@@ -51,17 +53,14 @@ then
 fi
 mkdir -p $LOG_DIR
 
-echo ""
-log "Outputs (and errors) will be saved in $LOG_DIR\n"
-echo ""
-
 SCRIPTS=$(find -type f | sort | sed 's/^\.\///g' | grep -v '00-')
-MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | /bin/wc -L)
+MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | tr ' ' '\n' | wc -L)
+MAX_SCRIPT_LENGTH=$(expr $MAX_SCRIPT_LENGTH + 4)
 for s in $SCRIPTS
 do
-	log "Executing $s...\n"
-	SPACING=$(printf "%*s" $((MAX_SCRIPT_LENGTH - ${#s})) "")
-	echo -n "$SPACING"
+	log "Executing $s..."
+	NB_SPACES=$(expr $MAX_SCRIPT_LENGTH - $(echo $s | wc -c))
+	printf "%${NB_SPACES}s" " "
 	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
 	RETURN_CODE=$?
 
