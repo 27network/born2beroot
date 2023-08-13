@@ -5,7 +5,8 @@ Collection of script to setup a Debian VM + bonuses.
 ## Usage
 
 ```bash
-wget https://raw.githubusercontent.com/27network/born2beroot/main/entry.sh
+git clone https://github.com/27network/born2beroot ~/b2br
+cd ~/b2br
 bash entry.sh
 ```
 
