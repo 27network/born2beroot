@@ -3,7 +3,7 @@
 # if the first argument isnt set
 if [ -z "$1" ]
 then
-	echo "Usage: ./00-installer.sh <b2br repo/directory>"
+	echo "Usage: ./$0 <b2br repo/directory>"
 	exit -1
 fi
 
@@ -64,9 +64,9 @@ do
 	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
 	RETURN_CODE=$?
 
-	if [ $(cat $LOG_DIR/$s.log | wc -l) -eq 0 ]
+	if [ $(cat $LOG_DIR/$s.err | wc -l) -eq 0 ]
 	then 
-		rm $LOG_DIR/$s.log
+		rm $LOG_DIR/$s.err
 	fi
 
 	if [ $RETURN_CODE -eq 0 ]
