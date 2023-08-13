@@ -1,5 +1,11 @@
 #!/bin/bash
 
+ENABLE_FILE="$HOME/b2br-scripts/.enable_monitoring"
+if [ ! -f "$ENABLE_FILE" ]
+then
+	exit 0
+fi
+
 ARCH=$(uname -srm)
 CPUS=$(cat /proc/cpuinfo | grep "physical id" | uniq | wc -l)
 VCPUS=$(cat /proc/cpuinfo | grep "processor" | uniq | wc -l)
@@ -12,7 +18,7 @@ MEM_USED_PERCENTAGE=$(awk "BEGIN {printf \"%.2f\",${MEM_USED}/${MEM_TOTAL}*100}"
 CPU_LOAD=$(top -bn1 | grep Cpu | xargs echo | cut -d' ' -f2 | cut -d'%' -f1)
 
 DISK_TOTAL_H=$(df -Bg | grep "^/dev" | grep -v "/boot$" | awk '{total += $2} END {print total}')
-DISK_USED_H=$(df -Bm | grep "^/dev" | grep -v "/boot$" | awk '{used += $3} END {print used}')
+DISK_USED_H=$(df -Bg | grep "^/dev" | grep -v "/boot$" | awk '{used += $3} END {print used}')
 DISK_USED_PERCENTAGE=$(df -Bm | grep "^/dev" | grep -v "/boot$" | awk '{used += $3} {total += $2} END {printf("%d"), used / total * 100}')
 
 LAST_BOOT=$(who -b | xargs echo | cut -d' ' -f3-)

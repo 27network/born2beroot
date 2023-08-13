@@ -59,9 +59,9 @@ SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
 MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | /bin/wc -L)
 for s in $SCRIPTS
 do
-	log "Executing %s...\n"
+	log "Executing $s...\n"
 	SPACING=$(printf "%*s" $((MAX_SCRIPT_LENGTH - ${#s})) "")
-	echo -n "$s$SPACING"
+	echo -n "$SPACING"
 	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
 	if [ -s $LOG_DIR/$s.err ]
 	then
@@ -76,7 +76,7 @@ done
 
 log "Finished install!"
 
-log " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
+echo -n " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
 read -p "" yn2
 
 case $yn2 in
@@ -93,6 +93,7 @@ git clone https://github.com/27network/Born2BeRootTester $1/tester
 cd $1/tester
 
 log "Launching for $usrlogin..\n"
+touch $HOME/b2br-scripts/.enable_monitoring
 bash ./grade_me.sh -u $usrlogin -m $HOME/b2br-scripts/monitoring.sh
 
 log "All done!\n"
