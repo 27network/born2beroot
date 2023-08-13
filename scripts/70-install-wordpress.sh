@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 MARIADB_ROOT_PASSWORD="#StrongPassword42069"
 WP_DATABASE="wp_data"
 WP_USER="wp_user"

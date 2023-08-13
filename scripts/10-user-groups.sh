@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 # Add the groups 
 groupadd -f user42
 groupadd -f sudo

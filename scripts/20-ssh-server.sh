@@ -1,7 +1,9 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 # Install openssh-server
-apt install -y openssh-server
+apt-get install -y openssh-server
 
 # Configure access
 echo "Port 4242" >> /etc/ssh/sshd_config

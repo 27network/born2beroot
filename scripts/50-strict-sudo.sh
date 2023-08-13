@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 # Install sudo
 apt install sudo -y
 

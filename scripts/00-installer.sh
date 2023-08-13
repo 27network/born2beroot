@@ -23,7 +23,7 @@ echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m"
 echo ""
 
 echo ""
-log "Born2BeRoot installer v0.2.5 by kiroussa\n"
+log "Born2BeRoot installer v0.2.7 by kiroussa\n"
 log "Running in '$1'\n"
 echo ""
 echo ""
@@ -55,7 +55,7 @@ echo ""
 log "Outputs (and errors) will be saved in $LOG_DIR\n"
 echo ""
 
-SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
+SCRIPTS=$(find -type f | sort | sed 's/^\.\///g' | grep -v '00-')
 MAX_SCRIPT_LENGTH=$(echo $SCRIPTS | /bin/wc -L)
 for s in $SCRIPTS
 do
@@ -63,11 +63,15 @@ do
 	SPACING=$(printf "%*s" $((MAX_SCRIPT_LENGTH - ${#s})) "")
 	echo -n "$SPACING"
 	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
-	if [ -s $LOG_DIR/$s.err ]
+	RETURN_CODE=$?
+
+	if [ $(cat $LOG_DIR/$s.log | wc -l) -eq 0 ]
+	then 
+		rm $LOG_DIR/$s.log
+	fi
+
+	if [ $RETURN_CODE -eq 0 ]
 	then
-		echo -en "\x1b[41;1m"
-		echo -n " FAILURE "
-	else
 		echo -en "\x1b[42;1m"
 		echo -n " SUCCESS "
 	fi
@@ -75,6 +79,8 @@ do
 done
 
 log "Finished install!"
+
+touch $HOME/b2br-scripts/.enable_monitoring
 
 echo -n " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
 read -p "" yn2
@@ -88,12 +94,9 @@ case $yn2 in
 		exit -1;;
 esac
 
-log "Fetching & launching tester...\n"
+log "Launching for $usrlogin..\n"
 git clone https://github.com/27network/Born2BeRootTester $1/tester
 cd $1/tester
-
-log "Launching for $usrlogin..\n"
-touch $HOME/b2br-scripts/.enable_monitoring
 bash ./grade_me.sh -u $usrlogin -m $HOME/b2br-scripts/monitoring.sh
 
 log "All done!\n"

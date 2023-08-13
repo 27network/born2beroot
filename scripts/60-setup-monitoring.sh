@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 # Move scripts
 ROOT_DIR="$HOME/b2br-scripts"
 mkdir -p $ROOT_DIR

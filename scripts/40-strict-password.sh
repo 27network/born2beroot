@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ./00-error-handling.sh
+
 # Install library
 apt install -y libpam-pwquality
 
