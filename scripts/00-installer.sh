@@ -15,12 +15,13 @@ function log() {
 # Obligatory project header
 clear
 echo ""
-echo "     _    ____  _          "
-echo "    | |__|___ \\| |__  _ __ "
-echo "    | '_ \\ __) | '_ \\| '__|"
-echo "    | |_) / __/| |_) | |   "
-echo "    |_.__/_____|_.__/|_|   "
+echo -e "\x1b[31;1m     _    ____  _          \x1b[0m"
+echo -e "\x1b[33;1m    | |__|___ \| |__  _ __ \x1b[0m"
+echo -e "\x1b[32;1m    | '_ \ __) | '_ \| '__|\x1b[0m"
+echo -e "\x1b[34;1m    | |_) / __/| |_) | |   \x1b[0m"
+echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m"
 echo ""
+
 echo ""
 log "Born2BeRoot installer v0.2.1 by kiroussa\n"
 log "Running in '$1'\n"
@@ -62,7 +63,7 @@ do
 	SPACING=$(printf "%*s" $((MAX_SCRIPT_LENGTH - ${#s})) "")
 	echo -n "$s$SPACING"
 	bash $s $usrlogin $1 > $LOG_DIR/$s.log 2>$LOG_DIR/$s.err
-	if [ $? -ne 0 ]
+	if [ -s $LOG_DIR/$s.err ]
 	then
 		echo -en "\x1b[41;1m"
 		echo -n " FAILURE "
