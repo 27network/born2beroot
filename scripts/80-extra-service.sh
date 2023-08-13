@@ -21,11 +21,17 @@ echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
 echo "userlist_enable=YES" >> /etc/vsftpd.conf
 echo "userlist_file=/etc/vsftpd.userlist" >> /etc/vsftpd.conf
 echo "userlist_deny=NO" >> /etc/vsftpd.conf
+pasv_min_port=1337
+pasv_max_port=1339
+echo "pasv_min_port=$pasv_min_port" >> /etc/vsftpd.conf
+echo "pasv_max_port=$pasv_max_port" >> /etc/vsftpd.conf
 
 # Reload
 systemctl restart vsftpd
 
 # Allow ports
-ufw allow 20/tcp
 ufw allow 21/tcp
+for i in $(seq $pasv_min_port $pasv_max_port); do
+	ufw allow $i/tcp
+done
 systemctl restart ufw
