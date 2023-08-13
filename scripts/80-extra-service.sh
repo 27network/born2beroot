@@ -51,5 +51,5 @@ systemctl restart vsftpd
 # Allow ports
 ufw allow 20/tcp
 ufw allow 21/tcp
-ufw allow $passv_min_port:$passv_max_port/tcp
+ufw allow $pasv_min_port:$pasv_max_port/tcp
 systemctl restart ufw
