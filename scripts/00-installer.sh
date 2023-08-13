@@ -23,7 +23,7 @@ echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m"
 echo ""
 
 echo ""
-log "Born2BeRoot installer v0.2.1 by kiroussa\n"
+log "Born2BeRoot installer v0.2.4 by kiroussa\n"
 log "Running in '$1'\n"
 echo ""
 echo ""
