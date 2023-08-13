@@ -2,6 +2,13 @@
 
 source ./00-error-handling.sh
 
+# Variables
+WP_DOMAIN="127.0.0.1"
+WP_TITLE="My Wordpress Blog"
+WP_ADMIN_USER="admin"
+WP_ADMIN_PASSWORD="admin"
+WP_ADMIN_EMAIL="admin@localhost"
+
 MARIADB_ROOT_PASSWORD="#StrongPassword42069"
 WP_DATABASE="wp_data"
 WP_USER="wp_user"
@@ -81,3 +88,12 @@ chmod -R 755 /var/www/html
 # Setup Wordpress cron
 echo "*/5 * * * * www-data /usr/bin/php /var/www/html/wp-cron.php" >> /etc/crontab
 service cron restart
+
+# Finalize Wordpress setup
+curl "http://$WP_DOMAIN/wp-admin/install.php?step=2" \
+  --data-urlencode "weblog_title=$WP_TITLE"\
+  --data-urlencode "user_name=$WP_ADMIN_USER" \
+  --data-urlencode "admin_email=$WP_ADMIN_EMAIL" \
+  --data-urlencode "admin_password=$WP_ADMIN_PASSWORD" \
+  --data-urlencode "admin_password2=$WP_ADMIN_PASSWORD" \
+  --data-urlencode "pw_weak=1"  
