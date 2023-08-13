@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# if the first argument isnt set
+if [ -z "$1" ]
+then
+	echo "Usage: ./00-installer.sh <directory>"
+	exit -1
+fi
+
 function log() {
 	PREFIX="\x1b[32;1mBorn2BeRoot\x1b[0m>"
 	printf "$PREFIX $@"

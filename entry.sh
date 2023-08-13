@@ -36,4 +36,4 @@ git pull
 
 # Launch installer
 cd scripts
-bash ./00-installer.sh
+bash ./00-installer.sh $TARGET_DIR
