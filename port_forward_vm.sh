@@ -8,6 +8,7 @@ fi
 
 function fw() {
 	VBoxManage modifyvm "$VM_NAME" --natpf1 "$1,tcp,,$2,,$3"
+	echo "VBoxManage modifyvm \"$VM_NAME\" --natpf1 \"$1,tcp,,$2,,$3\""
 }
 
 fw "ssh" 4242 4242
