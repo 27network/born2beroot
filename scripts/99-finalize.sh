@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # :trollface:
-cp ../config/motd /etc/motd
+cp $2/config/motd /etc/motd

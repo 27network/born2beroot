@@ -12,6 +12,19 @@ function log() {
 	printf "$PREFIX $@"
 }
 
+# Obligatory project header
+clear
+echo ""
+echo "  _    ____  _          "
+echo " | |__|___ \\| |__  _ __ "
+echo " | '_ \\ __) | '_ \\| '__|"
+echo " | |_) / __/| |_) | |   "
+echo " |_.__/_____|_.__/|_|   "
+echo "                        "
+log "Born2BeRoot installer v0.2.1 by kiroussa\n"
+log "Running in '$1'\n"
+echo ""
+
 # Ask if we want to automate the install process
 log "Do you want to start the automatic install? (y/N) "
 read -p "" yn
@@ -33,7 +46,7 @@ SCRIPTS=$(find -type f | sort | tail -n+2 | sed 's/^\.\///g')
 for s in $SCRIPTS
 do
 	log "Launching $s...\n"
-	bash $s $usrlogin
+	bash $s $usrlogin $1
 done
 
 log "Finished install! Do you want to launch Pixailz's tester? (y/N) "
@@ -49,8 +62,8 @@ case $yn2 in
 esac
 
 log "Fetching & launching tester...\n"
-git clone https://github.com/27network/Born2BeRootTester $HOME/b2br/tester
-cd $HOME/b2br/tester
+git clone https://github.com/27network/Born2BeRootTester $1/tester
+cd $1/tester
 
 log "Launching for $usrlogin..\n"
 bash ./grade_me.sh -u $usrlogin -m $HOME/b2br-scripts/monitoring.sh

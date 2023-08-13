@@ -3,8 +3,8 @@
 # Move scripts
 ROOT_DIR="$HOME/b2br-scripts"
 mkdir -p $ROOT_DIR
-cp $HOME/b2br/monitoring.sh $ROOT_DIR/monitoring.sh
-chmod 755 $HOME/b2br/monitoring.sh
+cp $2/monitoring.sh $ROOT_DIR/monitoring.sh
+chmod 755 $ROOT_DIR/monitoring.sh
 
 # Enable cron
 systemctl enable --now cron
