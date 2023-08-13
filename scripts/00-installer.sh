@@ -15,14 +15,16 @@ function log() {
 # Obligatory project header
 clear
 echo ""
-echo "  _    ____  _          "
-echo " | |__|___ \\| |__  _ __ "
-echo " | '_ \\ __) | '_ \\| '__|"
-echo " | |_) / __/| |_) | |   "
-echo " |_.__/_____|_.__/|_|   "
-echo "                        "
+echo "     _    ____  _          "
+echo "    | |__|___ \\| |__  _ __ "
+echo "    | '_ \\ __) | '_ \\| '__|"
+echo "    | |_) / __/| |_) | |   "
+echo "    |_.__/_____|_.__/|_|   "
+echo ""
+echo ""
 log "Born2BeRoot installer v0.2.1 by kiroussa\n"
 log "Running in '$1'\n"
+echo ""
 echo ""
 
 # Ask if we want to automate the install process
