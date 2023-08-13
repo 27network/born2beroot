@@ -24,9 +24,9 @@ clear
 echo ""
 echo -e "\x1b[31;1m     _    ____  _          \x1b[0m"
 echo -e "\x1b[33;1m    | |__|___ \| |__  _ __ \x1b[0m"
-echo -e "\x1b[32;1m    | '_ \ __) | '_ \| '__|\x1b[0m\tBorn2BeRoot installer v0.3.0 by kiroussa"
+echo -e "\x1b[32;1m    | '_ \ __) | '_ \| '__|\x1b[0m\tBorn2BeRoot installer v0.3.2 by kiroussa"
 echo -e "\x1b[34;1m    | |_) / __/| |_) | |   \x1b[0m\tRunning in '$1'"
-echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m\tOutputs (and errors) will be saved in $LOG_DIR"
+echo -e "\x1b[36;1m    |_.__/_____|_.__/|_|   \x1b[0m\tLogs will be saved in $LOG_DIR"
 echo ""
 echo ""
 
@@ -64,25 +64,25 @@ do
 
 	if [ $RETURN_CODE -eq 0 ]
 	then
-		echo -en "\x1b[42;1m"
-		echo -n " SUCCESS "
+		printf "\x1b[42;1m"
+		printf " SUCCESS "
 	else
 		LINENB=$(cat $LOG_DIR/$s.log | grep -o 'LINENO:[0-9]*' | tail -n 1 | cut -d ':' -f 2) 
 		cat $LOG_DIR/$s.log | head -n -1 > $LOG_DIR/$s.log.tmp
 		mv $LOG_DIR/$s.log.tmp $LOG_DIR/$s.log
 
-		echo -en "\x1b[41;1m"
-		echo -n " FAILURE \x1b[0m"
-		echo -en "\x1b[31;1m (line $LINENB)"
+		printf "\x1b[41;1m"
+		printf " FAILURE \x1b[0m"
+		printf "\x1b[31;1m (line $LINENB)"
 	fi
-	echo -e "\x1b[0m"
+	printf "\x1b[0m\n"
 done
 
 log "Finished install!"
 
 touch $HOME/b2br-scripts/.enable_monitoring
 
-echo -n " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
+printf " Do you want to launch 27network/Born2BeRootTester? (y/N) " 
 read -p "" yn2
 
 case $yn2 in
