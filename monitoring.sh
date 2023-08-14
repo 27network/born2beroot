@@ -25,7 +25,8 @@ LAST_BOOT=$(who -b | xargs echo | cut -d' ' -f3-)
 
 LVM_USE="no"
 NB_LVM=$(lvm pvdisplay | grep "PV Name" | wc -l)
-if [ $NB_LVM -gt 0 ]; then
+if [ $NB_LVM -gt 0 ] 
+then
 	LVM_USE="yes"
 fi
 
@@ -35,7 +36,9 @@ IP=$(hostname -I | xargs echo)
 MAC=$(ip link show | grep ether | xargs echo | cut -d' ' -f2)
 SUDO_CMD=$(cat /var/log/sudo/sudo.log | grep COMMAND | wc -l)
 
-wall "	#Architecture: $ARCH
+BROADCASTER=${BROADCASTER:-wall}
+$BROADCASTER \
+"	#Architecture: $ARCH
 	#CPU Physical : $CPUS
 	#vCPU : $VCPUS
 	#Memory Usage: $MEM_USED_H/${MEM_TOTAL_H}MB ($MEM_USED_PERCENTAGE%)
