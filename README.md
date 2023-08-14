@@ -5,9 +5,14 @@ Collection of script to setup a Debian VM + bonuses.
 ## Usage
 
 ```bash
-git clone https://github.com/27network/born2beroot ~/b2br
-cd ~/b2br
+# Clone the repo
+git clone https://github.com/27network/born2beroot
+cd born2beroot
+
+# You might wanna check out ./config to customize your install a bit
+
+# Launch the bootstrap script
 bash entry.sh
 ```
 
-That's it 👍
+Enjoy 👍
