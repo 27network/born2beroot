@@ -90,7 +90,7 @@ echo "*/5 * * * * www-data /usr/bin/php /var/www/html/wp-cron.php" >> /etc/cront
 service cron restart
 
 # Finalize Wordpress setup
-curl "http://$WP_DOMAIN/wp-admin/install.php?step=2" \
+curl -X POST "http://$WP_DOMAIN/wp-admin/install.php?step=2" \
   --data-urlencode "weblog_title=$WP_TITLE"\
   --data-urlencode "user_name=$WP_ADMIN_USER" \
   --data-urlencode "admin_email=$WP_ADMIN_EMAIL" \
