@@ -10,6 +10,9 @@ fi
 apt update -y
 apt upgrade -y
 
+# Remove dumb stuff
+apt remove --purge adwaita-icon-theme -y
+
 # Install base packages
 apt install -y curl wget git
 
