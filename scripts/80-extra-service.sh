@@ -27,7 +27,7 @@ cd $CURRENT
 
 # Write launch script
 echo "screen -dm bash -c 'java --add-modules=jdk.incubator.vector -Xmx2G -jar server.jar nogui'" > $TARGET_FOLDER/run.sh 
-bash $TARGET_SCRIPT/run.sh
+bash $TARGET_FOLDER/run.sh
 
 # Write crontab
 INTERVAL='@reboot'
