@@ -1,6 +1,6 @@
 #!/bin/sh
 
-B2BR_INSTALLER_VERSION="0.4.0"
+B2BR_INSTALLER_VERSION="0.4.1"
 
 # if the first argument isnt set
 if [ -z "$1" ]
