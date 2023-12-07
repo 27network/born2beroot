@@ -2,54 +2,31 @@
 
 source ./00-error-handling.sh
 
-# Install vsftpd
-apt install -y vsftpd
+# Install openjdk-17
+apt install screen openjdk-17-jre -y
 
-# Enable service
-systemctl enable --now vsftpd
+# Create folder
+TARGET_USER=$1
+TARGET_FOLDER=/home/$TARGET_USER/secret_service
+mkdir -p $TARGET_FOLDER
 
-# Add user to userlist
-echo $1 | sudo tee -a /etc/vsftpd.userlist
+# Download jarfile
+curl -sSL https://api.purpurmc.org/v2/purpur/1.20.2/latest/download -o $TARGET_FOLDER/server.jar
 
-# Edit configuration
-## Disable anonymous users
-sed -i 's/.*anonymous_enable=.*/anonymous_enable=NO/g' /etc/vsftpd.conf
+# Accept EULA
+echo "eula=true" > $TARGET_FOLDER/eula.txt
 
-## Enable local users
-sed -i 's/.*local_enable=.*/local_enable=YES/g' /etc/vsftpd.conf
-sed -i 's/^write_enable=.*/write_enable=YES/g' /etc/vsftpd.conf
-sed -i 's/.*local_umask=.*/local_umask=022/g' /etc/vsftpd.conf
+# Write launch script
+echo "screen -dm bash -c 'java --add-modules=jdk.incubator.vector -Xmx2G server.jar nogui'" > $TARGET_FOLDER/run.sh 
 
-## Enable SSL 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem <<EOF
-US
-New York
-New York
-Example, Inc.
-Example
-Example
+# Write crontab
+INTERVAL='@reboot'
+COMMAND="sh $TARGET_FOLDER/run.sh"
+(crontab -l 2>/dev/null; echo "$INTERVAL $COMMAND") | crontab -
 
-EOF
+# Ensure crontab loaded
+EDITOR="cat" crontab -e
 
-sed -i 's/.*rsa_cert_file=.*/rsa_cert_file=\/etc\/ssl\/private\/vsftpd.pem/g' /etc/vsftpd.conf
-sed -i 's/.*rsa_private_key_file=.*/rsa_private_key_file=\/etc\/ssl\/private\/vsftpd.pem/g' /etc/vsftpd.conf
-sed -i 's/.*ssl_enable=.*/ssl_enable=YES/g' /etc/vsftpd.conf
-
-## Enable passive mode
-echo "pasv_enable=YES" >> /etc/vsftpd.conf
-pasv_min_port=42000
-pasv_max_port=42042
-echo "pasv_min_port=$pasv_min_port" >> /etc/vsftpd.conf
-echo "pasv_max_port=$pasv_max_port" >> /etc/vsftpd.conf
-echo "pasv_address=127.0.0.1" >> /etc/vsftpd.conf
-echo "pasv_addr_resolve=NO" >> /etc/vsftpd.conf
-echo "port_enable=YES" >> /etc/vsftpd.conf
-
-# Reload
-systemctl restart vsftpd
-
-# Allow ports
-ufw allow 20/tcp
-ufw allow 21/tcp
-ufw allow $pasv_min_port:$pasv_max_port/tcp
+# Allow port
+ufw allow 25565/tcp
 systemctl restart ufw

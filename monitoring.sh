@@ -23,12 +23,7 @@ DISK_USED_PERCENTAGE=$(df -Bm | grep "^/dev" | grep -v "/boot$" | awk '{used += 
 
 LAST_BOOT=$(who -b | xargs echo | cut -d' ' -f3-)
 
-LVM_USE="no"
-NB_LVM=$(lvm pvdisplay | grep "PV Name" | wc -l)
-if [ $NB_LVM -gt 0 ] 
-then
-	LVM_USE="yes"
-fi
+LVM_USE=$(lsblk | grep lvm > /dev/null && echo yes || echo no)
 
 TCP_CONNECT=$(cat /proc/net/sockstat | grep "TCP" | cut -d' ' -f3)
 USER_LOG=$(who | wc -l)
