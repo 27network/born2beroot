@@ -3,7 +3,7 @@
 source ./00-error-handling.sh
 
 # Install openjdk-17
-apt install screen openjdk-17-jre -y
+apt install screen unzip openjdk-17-jre -y
 
 # Create folder
 TARGET_USER=$1
@@ -27,6 +27,7 @@ cd $CURRENT
 
 # Write launch script
 echo "screen -dm bash -c 'java --add-modules=jdk.incubator.vector -Xmx2G -jar server.jar nogui'" > $TARGET_FOLDER/run.sh 
+bash $TARGET_SCRIPT/run.sh
 
 # Write crontab
 INTERVAL='@reboot'
