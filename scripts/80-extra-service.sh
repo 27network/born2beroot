@@ -16,8 +16,17 @@ curl -sSL https://api.purpurmc.org/v2/purpur/1.20.2/latest/download -o $TARGET_F
 # Accept EULA
 echo "eula=true" > $TARGET_FOLDER/eula.txt
 
+# Copy map
+cp $2/data/map.zip $TARGET_FOLDER/map.zip
+
+CURRENT=`pwd`
+cd $TARGET_FOLDER
+unzip map.zip
+rm -rf map.zip
+cd $CURRENT
+
 # Write launch script
-echo "screen -dm bash -c 'java --add-modules=jdk.incubator.vector -Xmx2G server.jar nogui'" > $TARGET_FOLDER/run.sh 
+echo "screen -dm bash -c 'java --add-modules=jdk.incubator.vector -Xmx2G -jar server.jar nogui'" > $TARGET_FOLDER/run.sh 
 
 # Write crontab
 INTERVAL='@reboot'
