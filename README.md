@@ -1,4 +1,4 @@
-# born2beroot
+# born2beroot [![kiroussa's 42 Born2beroot Score](https://badge42.coday.fr/api/v2/clqhi717m065501p4hai37lsg/project/3386667)](https://projects.intra.42.fr/projects/born2beroot/projects_users/3386667)
 
 Collection of script to setup a Debian VM + bonuses.
 
